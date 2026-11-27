@@ -13,8 +13,8 @@ import os
 
 ENTRY = (
     "My agent apologizes for being wrong, then confidently repeats "
-    "the mistake — now with bullet points, a table, and a smug "
-    "little summary."
+    "the mistake — this time with bullet points, a table, and a "
+    "smug little summary, as if formatting were a fact-check."
 )
 
 
@@ -22,6 +22,8 @@ def main() -> None:
     output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(output_dir, exist_ok=True)
     entry = ENTRY.strip()
+    assert entry, "entry must not be empty"
+    assert "  " not in entry, "entry must not contain double spaces"
     assert "\n" not in entry, "entry must be a single line"
     assert len(entry) <= 200, f"entry too long: {len(entry)} chars"
     path = os.path.join(output_dir, "entry.txt")
